@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Parcial 2 Jose David Tamara Cano 201715150
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
