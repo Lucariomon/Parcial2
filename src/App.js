@@ -3,22 +3,42 @@ import React from 'react';
 import Table from 'react-bootstrap/Table';  
 import Container from 'react-bootstrap/Container';  
 import Row from 'react-bootstrap/Row';  
-import Col from 'react-bootstrap/Col';  
+import Col from 'react-bootstrap/Col';
+import { useTranslation } from 'react-i18next';
 
 function App() {
-  const url = "https://gist.githubusercontent.com/josejbocanegra/c55d86de9e0dae79e3308d95e78f997f/raw/a467415350e87c13faf9c8e843ea2fd20df056f3/series-es.json"
+  /** internacionalizado */
+  const [t, i18n] = useTranslation("global");
+  const language = navigator.language;
+  if(language.startsWith("es")){
+    i18n.changeLanguage("es")
+  }
+  /** subida de information */
+  var det = 0
+  const url = t("data")
   const request = new XMLHttpRequest();
   request.open('GET', url);  
   request.onload = function(){ 
     if (request.status >= 200 && request.status < 400) {
     var data = JSON.parse(request.responseText);
     localStorage.setItem('info', JSON.stringify(data));
-    console.log('data',data);
   } else {}
-};
+  };
   request.send();
   const data = JSON.parse(localStorage.getItem('info'));
-  console.log('data', data);
+  function handleClick(e,ind) {
+    e.preventDefault();
+    det = ind;
+    var cont = document.getElementById("det")
+    var row =  `<img class="w-100" src=${data[det].poster} alt="Error loading image."></img>
+                <div class="detailtext">
+                  <h2>${data[det].name}</h2>
+                  <p>${data[det].description}</p>
+                  <a href=${data[det].webpage}>${t("link")}</a>
+                </div>`;
+    cont.innerHTML = row;
+  };
+  /** web page */
   return (
     <div>
       <div>
@@ -33,38 +53,38 @@ function App() {
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Channel</th>
-                    <th>seasons</th>
-                    <th>episodes</th>
-                    <th>release Date</th>
+                    <th>{t("name")}</th>
+                    <th>{t("channel")}</th>
+                    <th>{t("seasons")}</th>
+                    <th>{t("episodes")}</th>
+                    <th>{t("release")}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {Array.from({ length: data.length }).map((_, index) => (
-                  <tr>
-                    <td>{index + 1}</td>
-                    <td>{data[index].name}</td>
-                    <td>{data[index].channel}</td>
-                    <td>{data[index].seasons}</td>
-                    <td>{data[index].episodes}</td>
-                    <td>{data[index].release}</td>
-                  </tr>
+                  <tr>                      
+                    <td><button href="#" onClick={(e) => handleClick(e,index)}>{index + 1}</button></td>
+                    <td><button href="#" onClick={(e) => handleClick(e,index)}>{data[index].name}</button></td>
+                    <td><button href="#" onClick={(e) => handleClick(e,index)}>{data[index].channel}</button></td>
+                    <td><button href="#" onClick={(e) => handleClick(e,index)}>{data[index].seasons}</button></td>
+                    <td><button href="#" onClick={(e) => handleClick(e,index)}>{data[index].episodes}</button></td>
+                    <td><button href="#" onClick={(e) => handleClick(e,index)}>{data[index].release}</button></td>
+                  </tr>                  
                   ))}
                 </tbody>
               </Table>
             </div>
           </Col>
-          <Col xs lg="2">
-            <div class="detailbox">
-              <img src={data[0].poster}></img>
-              <h2>{data[0].name}</h2>
-              <p>{data[0].description}</p>
-              <a href={data[0].webpage}></a>
+          <Col xs lg="4">
+            <div id="det" class="detailbox">
+              
             </div>
           </Col>
         </Row>
       </Container>
+      <div id="canvas">
+
+      </div>
     </div>    
   );
 }

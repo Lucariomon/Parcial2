@@ -1,0 +1,9 @@
+{
+    "name":"Nombre",
+    "channel":"Canal",
+    "seasons":"Temporadas",
+    "episodes":"Episodios",
+    "release":"Fecha de Salida",
+    "link":"Ve a ver la serie -->",
+    "data":"https://gist.githubusercontent.com/josejbocanegra/c55d86de9e0dae79e3308d95e78f997f/raw/a467415350e87c13faf9c8e843ea2fd20df056f3/series-es.json"
+}

@@ -1,0 +1,9 @@
+{
+    "name":"Name",
+    "channel":"Channel",
+    "seasons":"Seasons",
+    "episodes":"Episodes",
+    "release":"Release Date",
+    "link":"Go to the series -->",
+    "data":"https://gist.githubusercontent.com/josejbocanegra/5dc69cb7feb7945ef58b9c3d84be2635/raw/e2d16f7440d51cae06a9daf37b0b66818dd1fe31/series-en.json"
+}
